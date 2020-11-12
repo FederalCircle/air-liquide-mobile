@@ -8,6 +8,10 @@ const useToDo = () => {
 
   const toDoItems = useSelector((state: ReduxState) => state.toDoItems)
 
+  const isToDoCompleted =
+    toDoItems.length &&
+    toDoItems.reduce((acc, item) => acc && item.checked, true)
+
   // Initial fetch
   useEffect(() => {
     dispatch(fetchToDoItems())
@@ -22,6 +26,7 @@ const useToDo = () => {
   return {
     toDoItems,
     toggleItem,
+    isToDoCompleted,
   }
 }
 
