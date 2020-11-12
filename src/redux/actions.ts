@@ -1,20 +1,11 @@
-import * as types from './types'
+import { ToDoItem } from '../types'
+import * as types from './actionTypes'
 
-export interface CounterAction {
-  type: String
-  value?: number
-}
-
-export const increment = (value: number): CounterAction => ({
-  type: types.INCREMENT,
-  value,
+export const updateToDoItems = (toDoItems: ToDoItem[]) => ({
+  type: types.UPDATE_TO_DO_ITEMS,
+  toDoItems,
 })
 
-export const decrement = (value: number): CounterAction => ({
-  type: types.DECREMENT,
-  value,
-})
-
-export const requestIncrementAsync = (): CounterAction => ({
-  type: types.REQUEST_INCREMENT_ASYNC,
+export const fetchToDoItems = () => ({
+  type: types.FETCH_TO_DO_ITEMS,
 })

@@ -1,20 +1,25 @@
 import { combineReducers } from 'redux'
-import * as types from './types'
-import { CounterAction } from './actions'
+import { ReduxAction, ToDoItem } from '../types'
+import * as types from './actionTypes'
 
-const counterReducer = (state: number = 0, action: CounterAction): number => {
+interface ToDoItemsAction extends ReduxAction {
+  toDoItems: ToDoItem[]
+}
+
+const toDoItemsReducer = (
+  state: ToDoItem[] = [],
+  action: ToDoItemsAction
+): ToDoItem[] => {
   switch (action.type) {
-    case types.INCREMENT:
-      return state + 1
-    case types.DECREMENT:
-      return state - 1
+    case types.UPDATE_TO_DO_ITEMS:
+      return action.toDoItems
     default:
       return state
   }
 }
 
 const reducer = combineReducers({
-  counter: counterReducer,
+  toDoItems: toDoItemsReducer,
 })
 
 export default reducer

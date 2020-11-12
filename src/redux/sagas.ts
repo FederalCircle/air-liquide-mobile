@@ -1,18 +1,23 @@
+import Axios from 'axios'
 import { put, takeEvery, all } from 'redux-saga/effects'
-import { increment } from './actions'
-import * as types from './types'
+import { updateToDoItems } from './actions'
+import * as types from './actionTypes'
 
-const delay = (ms: number) => new Promise((res) => setTimeout(res, ms))
-
-function* incrementAsync() {
-  yield delay(1000)
-  yield put(increment(1))
+function* fetchToDoItemsWorker() {
+  try {
+    const { data } = yield Axios.get(
+      'https://my.api.mockaroo.com/epilist?key=52d6c330'
+    )
+    yield put(updateToDoItems(data))
+  } catch (err) {
+    throw err
+  }
 }
 
-function* watchIncrementAsync() {
-  yield takeEvery(types.REQUEST_INCREMENT_ASYNC, incrementAsync)
+function* fetchToDoItemsWatcher() {
+  yield takeEvery(types.FETCH_TO_DO_ITEMS, fetchToDoItemsWorker)
 }
 
 export default function* rootSaga() {
-  yield all([watchIncrementAsync()])
+  yield all([fetchToDoItemsWatcher()])
 }
