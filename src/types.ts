@@ -1,5 +1,6 @@
 export interface ToDoItem {
   name: string
+  checked: boolean
 }
 
 // Redux

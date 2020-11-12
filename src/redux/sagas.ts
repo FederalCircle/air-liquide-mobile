@@ -5,10 +5,17 @@ import * as types from './actionTypes'
 
 function* fetchToDoItemsWorker() {
   try {
-    const { data } = yield Axios.get(
+    const { data: list } = yield Axios.get(
       'https://my.api.mockaroo.com/epilist?key=52d6c330'
     )
-    yield put(updateToDoItems(data))
+    // const list = [{ name: 'Foo' }, { name: 'Bar' }, { name: 'Baz' }]
+    interface ListItem {
+      name: string
+    }
+
+    const items = list.map((item: ListItem) => ({ ...item, checked: false }))
+
+    yield put(updateToDoItems(items))
   } catch (err) {
     throw err
   }

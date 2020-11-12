@@ -6,6 +6,16 @@ export const updateToDoItems = (toDoItems: ToDoItem[]) => ({
   toDoItems,
 })
 
+export const checkItem = (index: number) => ({
+  type: types.CHECK_ITEM,
+  index,
+})
+
+export const uncheckItem = (index: number) => ({
+  type: types.UNCHECK_ITEM,
+  index,
+})
+
 export const fetchToDoItems = () => ({
   type: types.FETCH_TO_DO_ITEMS,
 })
